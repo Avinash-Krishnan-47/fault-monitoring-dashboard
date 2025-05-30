@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang = "en">
+    <head>
+        <meta charset = "UTF-8">
+        <meta name = "viewport" content = "width=device-width , initial-scale=1.0">
+        <meta name = "description" content = "A smart web dashboard for real-time monitoring and fault prediction of industrial equipment using machine learning. Built for Instrumentation and production engineering applications">
+        <title> Smart Condition Monitoring and Fault Prediction </title>
+        <link rel = "icon" href = "condition_monitoring.png"> 
+        <link rel = "stylesheet" href = "homeStyle.css"> 
+    </head>
+    <body>
+        <nav id = "landing">
+            <div id = "nav-left-bar">
+            <a href = "home.html"> <img src = "rna.png" alt = "Ragav and Avinash" width = "100" height = "100"> </a>
+            <ul class = "normal">
+                <li><a href = "home.html" class = "dash"> Home </a></li>
+                <li><a href = "dashboard.html"  class = "dash"> Dashboard </a></li> 
+                <li><a href = "visualize.html" class = "dash"> Visualize </a></li>
+            </ul>
+            </div>
+            <ul class = "acc-login">
+                <li><a href = "signup.html"> SignUp </a></li>
+                <li><a href = "login.html" id = "login-acc"> Login </a></li>
+            </ul>
+        </nav>
+        <section id = "equipment">
+            <h2> Industrial Equipment Health Monitoring </h2>
+            <img src = "IE.jpg" alt = "Industrial Equipment">
+        </section>
+        <div id = "about">
+            <h4> About the Website </h4>
+            <p> This website is all about smart condition monitoring and predictive analysis where we 
+                predict the health of the industrial equipment whether it is a faulty one or a healthier one <strong> in real time </strong>. This is done so as to 
+                diagonise the equipment in case of any failure in the equipment . It makes use of a Machine Learning Model to predict 
+                the health of the equipment and decide if it is a healthier one or a faulty one . This website is crafed specifically for 
+                <strong><em> Instrumentation </em></strong> and <strong><em>Production </em></strong> engineering applications .
+            </p>
+            <br>
+            <p>
+                Users can input key equipment parameters such as <strong>temperature, vibration, voltage, and current</strong> and learn more about the health of their equipments .
+                A dedicated <strong>Visualize</strong> section provides graphical insights and historical trends to support data-driven analysis . No physical sensors or hardware are needed — 
+                the system works entirely on simulated or manually entered data, making it suitable for research and learning purposes . It promotes predictive maintenance, reduces equipment downtime,
+                and supports Industry 4.0 practices . 
+            </p>
+            <section id = "clicker">
+                <button> Predict now </button>
+                <button> Visualize now </button>
+            </section>
+        </div>
+        <section class = "bottom">
+            <div class = "contact-us">
+                <p class = "text"><strong> Contact us </strong></p>
+                <p> &#9993; &nbsp; <a href = "mailto:110122096@nitt.edu" class = "mail"> 110122096@nitt.edu </a> </p>
+                <p> &#9743; &nbsp; <a href = "tel:12345678" class = "phone"> +91 12345678 </a> </p>
+            </div>
+            <div class = "navigation">
+                <p class = "text"> Navigation </p>
+                <ul class = "link-home-dash">
+                    <li><a href = "home.html" target = "_self" class = "link-dash"> Home </a></li>
+                    <li><a href = "dashboard.html" target = "_self" class = "link-dash"> Dashboard </a></li>
+                    <li><a href = "visualize.html" target = "_self" class = "link-dash"> Visualize </a></li>
+                    <li><a href = "about-us" target = "_self" class = "link-dash"> About us </a></li>
+                </ul>
+            </div>
+            <div class = "feedback">
+                <p class = "text"> Love to write us a feedback </p>
+                <textarea id = "feedback-space" placeholder = " Write your feedback here ...." name = "feedback" rows = "5" cols = "40"></textarea>
+            </div>
+        </section>
+        <div class = "copyrights">
+            <p> &copy; NITT 2025 </p> 
+        </div>
+    </body>
+</html>
