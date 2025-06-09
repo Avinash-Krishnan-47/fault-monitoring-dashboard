@@ -6,8 +6,128 @@
         <meta name = "description" content = "This page is where you wanna input your data and take a look at the health condition of your equipment">
         <title> Dashboard - Predictive analysis </title>
         <link rel = "icon" href = "condition_monitoring.png">
+        <link rel = "stylesheet" href = "dashboardStyle.css">
     </head>
     <body>
+        <nav id = "landing">
+            <div id = "nav-left-bar">
+            <a href = "home.html"> <img src = "rna.png" alt = "Ragav and Avinash" width = "100" height = "100"> </a>
+            <ul class = "normal">
+                <li><a href = "home.html" class = "dash"> Home </a></li>
+                <li><a href = "dashboard.html"  class = "dash"> Dashboard </a></li> 
+                <li><a href = "visualize.html" class = "dash"> Visualize </a></li>
+            </ul>
+            </div>
+            <ul class = "acc-login">
+                <li><a href = "signup.html"> SignUp </a></li>
+                <li><a href = "login.html" id = "login-acc"> Login </a></li>
+            </ul>
+        </nav>
         
+        <div class = "work-area">
+
+            <h3 class = "form-title"> <strong> Your Health Predictor </strong> </h3>
+            <p class = "form-description"> Enter the sensor data : </p>
+
+            <form class = "form-area">
+
+                <div class = "input-group">
+                    <label for = "temp"> Temperature : </label>
+                    <input id = "temp" type = "text" name = "temperature" class = "input-box">
+                    <label for = "temp-units"></label>
+                    <select id = "temp-units" name = "temp-units">
+                        <option value = "celcius"> C </option>
+                        <option value = "fahrenheit"> F </option>
+                        <option value = "kelvin"> K </option>
+                    </select>
+                </div>
+                <br>
+
+                <div class = "input-group">
+                    <label for = "pre"> Pressure : </label>
+                    <input id = "pre" type = "text" name = "pressure" class = "input-box">
+                    <label for = "pre-units"></label>
+                    <select id = "pre-units" name = "pressure-units">
+                        <option value = "bar"> bar </option>
+                        <option value = "psi"> psi </option>
+                        <option value = "pascals"> Pa </option>
+                        <option value = "atm"> atm </option>
+                    </select>
+                </div>
+                <br>
+
+                <div class = "input-group">
+                    <label for = "vib"> Vibration : </label>
+                    <input id = "vib" type = "text" name = "vibration" class = "input-box">
+                    <label for = "vib-units"></label>
+                    <select id = "vib-units" name = "vibration-units">
+                        <option value = "mms">mm/s</option>
+                        <option value = "um">µm</option>
+                    </select>
+                </div>
+                <br> 
+
+                <div class = "input-group">
+                    <label for = "hum"> Humidity : </label>
+                    <input id = "hum" type = "text" name = "Humidity" class = "input-box">
+                    <label for = "hum-units"></label>
+                    <select id = "hum-units" name = "humidity-units">
+                        <option value = "rh">%RH</option>
+                    </select>
+                </div>
+                <br> 
+
+                <button type = "submit" class = "submit-button"> Predict Health </button>
+
+            </form> 
+        </div>
+
+        <div class = "output-section">
+            <h2> View your output status : </h2>
+            <h4> Status : </h4>
+            <h4> Causes : </h4>
+            <h4> Possible Solution : </h4>
+        </div>
+
+        <div class = "history-section">
+
+            <table class = "table-section">
+                <caption class = "table-caption"> History Logs </caption>
+                <thead>
+                    <tr>
+                        <th class = "table-headings"> Timestamp </th>
+                        <th class = "table-headings"> Temperature </th>
+                        <th class = "table-headings"> Pressure </th>
+                        <th class = "table-headings"> Vibration </th>
+                        <th class = "table-headings"> Humidity </th>
+                        <th class = "table-headings"> Status </th>                    
+                    </tr>
+                </thead>
+            </table>
+
+        </div>
+        <section class = "bottom">
+            <div class = "contact-us">
+                <p class = "text"><strong> Contact us </strong></p>
+                <p> &#9993; &nbsp; <a href = "mailto:110122096@nitt.edu" class = "mail"> 110122096@nitt.edu </a> </p>
+                <p> &#9743; &nbsp; <a href = "tel:12345678" class = "phone"> +91 12345678 </a> </p>
+            </div>
+            <div class = "navigation">
+                <p class = "text"> Navigation </p>
+                <ul class = "link-home-dash">
+                    <li><a href = "home.html" target = "_self" class = "link-dash"> Home </a></li>
+                    <li><a href = "dashboard.html" target = "_self" class = "link-dash"> Dashboard </a></li>
+                    <li><a href = "visualize.html" target = "_self" class = "link-dash"> Visualize </a></li>
+                    <li><a href = "about-us" target = "_self" class = "link-dash"> About us </a></li>
+                </ul>
+            </div>
+            <div class = "feedback">
+                <p class = "text"> Love to write us a feedback </p>
+                <textarea id = "feedback-space" placeholder = " Write your feedback here ...." name = "feedback" rows = "5" cols = "40"></textarea>
+            </div>
+        </section>
+        <div class = "copyrights">
+            <p> &copy; NITT 2025 </p> 
+        </div>
     </body>
 </html>
