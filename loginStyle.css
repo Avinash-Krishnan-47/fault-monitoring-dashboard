@@ -1,0 +1,120 @@
+*{
+    margin : 0 ; 
+    padding : 0 ; 
+    box-sizing : border-box ; 
+}
+body{
+    background-color : lightblue ; 
+}
+.login-container{
+    width : 375px ; 
+    margin : 80px auto ; 
+    padding : 20px ; 
+    height : 500px ; 
+    border : none ; 
+    background-color : whitesmoke ; 
+}
+.RNA-picture{
+    width : 60px ; 
+    height : 60px ; 
+    display : block ; 
+    margin : 5px auto 35px ; 
+}
+.login-input{
+    display : block ; 
+    width : 100% ; 
+    font-size : 15px ; 
+    border : 0.5px solid rgba(0, 0, 0, 0.301) ; 
+    padding : 10px ; 
+    color :rgba(0, 0, 0, 0.575) ; 
+    font-family : sans-serif ; 
+}
+.login-input:hover{
+    border : 1px solid black ; 
+    border-radius : 3.5px ; 
+}
+.login-input:focus{
+    box-shadow : 0 0 25px rgba(212, 81, 4, 0.2) ; 
+    border : 1px solid black ; 
+    outline : none ; 
+}
+.sign-in-button{
+    display : block ; 
+    width : 100% ; 
+    margin : 51px auto 20px ; 
+    color : white ; 
+    background-color : rgb(2, 2, 41) ; 
+    opacity : 0.95 ; 
+    padding : 10px ; 
+    font-size : 15px ; 
+    border : none ; 
+    cursor : pointer ; 
+}
+.sign-in-button:hover{
+    background-color : #8bb3b4 ; 
+    box-shadow : 0 4px 8px rgba(0,0,0,0.2) ; 
+}
+.not-able-to-login{
+    display : flex ; 
+    justify-content : space-between ; 
+    align-items : center ; 
+}
+.not-able-to-login a:link{
+    text-decoration : none ; 
+    color : #565656 ; 
+    font-size : 16px ; 
+    padding : 3px ; 
+}
+.additional-options{
+    display : block ; 
+    width : 100% ; 
+    padding : 10px ; 
+    margin-top : 15px ; 
+}
+.sign-in-with-text{
+    text-align : center ; 
+    font-size : 14px ; 
+    font-family : 'Times New Roman', Times, serif ; 
+    font-weight : bold ; 
+    text-transform : lowercase ; 
+    color : grey ; 
+}
+.google-logo{
+    width : 25px ; 
+    height : 25px ; 
+    display : block ; 
+    margin : 20px auto ; 
+    cursor : pointer ; 
+}
+.bottom{
+    display : flex ; 
+    background-color : #EAEAEA ; 
+    padding : 20px 40px ; 
+    justify-content : space-around ; 
+    align-items : flex-start ; 
+}
+.text{
+    font-size : 20px ;  
+    font-weight : bold ; 
+    font-family : 'Times New Roman', Times, serif ; 
+    color : #303030 ; 
+}
+.mail , .phone{
+    color : rgb(104 , 104 , 104) ; 
+    text-decoration : none ; 
+}
+.link-home-dash{
+    list-style : none ; 
+}
+.link-dash{
+    font-family : 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif ; 
+    text-decoration : none ; 
+    color :rgb(104 , 104 , 104) ; 
+}
+#feedback-space{
+    border : none ; 
+}
+.copyrights{
+    text-align : center ; 
+    padding : 20px 40px ; 
+}
