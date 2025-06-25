@@ -1,0 +1,9 @@
+CREATE DATABASE loginDB ; 
+USE loginDB ; 
+
+CREATE TABLE availableUsers(
+     id INT AUTO_INCREMENT PRIMARY KEY , 
+     username VARCHAR(50) UNIQUE NOT NULL , 
+     email VARCHAR(100) NOT NULL UNIQUE , 
+     pswd VARCHAR(500) NOT NULL 
+) ; 

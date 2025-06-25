@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Maintenance Scheduler - Smart Condition Monitoring</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="condition_monitoring.png">
+    <link rel="stylesheet" href="maintenanceStyle.css">
+</head>
+<body>
+    <nav class="navbar">
+        <ul class="nav-links">
+            <li><a href="home.html">Home</a></li>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="visualize.html">Visualize</a></li>
+            <li><a href="about-us.html">About Us</a></li>
+        </ul>
+    </nav>
+    <div class="maintenance-container">
+        <img src="rna.png" alt="RNA Symbol" class="RNA-picture">
+        <h2 class="schedule-title">Schedule a Maintenance Task</h2>
+        <form class="maintenance-form">
+            <label for="equipment">Equipment Name:</label>
+            <input type="text" id="equipment" name="equipment" class="maintenance-input" required>
+
+            <label for="date">Scheduled Date:</label>
+            <input type="date" id="date" name="date" class="maintenance-input" required>
+
+            <label for="type">Type of Maintenance:</label>
+            <select id="type" name="type" class="maintenance-input" required>
+                <option value="">-- Select Type --</option>
+                <option value="Preventive">Preventive</option>
+                <option value="Corrective">Corrective</option>
+                <option value="Predictive">Predictive</option>
+            </select>
+
+            <label for="remarks">Additional Notes:</label>
+            <textarea id="remarks" name="remarks" rows="4" class="maintenance-input" placeholder="Optional..."></textarea>
+
+            <button type="submit" class="schedule-button">Schedule Maintenance</button>
+        </form>
+    </div>
+
+    <section class="bottom">
+        <div class="contact-us">
+            <p class="text"><strong>Contact us</strong></p>
+            <p> &#9993; &nbsp; <a href="mailto:110122096@nitt.edu" class="mail">110122096@nitt.edu</a> </p>
+            <p> &#9743; &nbsp; <a href="tel:12345678" class="phone">+91 12345678</a> </p>
+        </div>
+        <div class="navigation">
+            <p class="text">Navigation</p>
+            <ul class="link-home-dash">
+                <li><a href="home.html" class="link-dash">Home</a></li>
+                <li><a href="dashboard.html" class="link-dash">Dashboard</a></li>
+                <li><a href="visualize.html" class="link-dash">Visualize</a></li>
+                <li><a href="about-us.html" class="link-dash">About Us</a></li>
+            </ul>
+        </div>
+        <div class="feedback">
+            <p class="text">Love to write us a feedback</p>
+            <textarea id="feedback-space" placeholder="Write your feedback here..." name="feedback" rows="5" cols="40"></textarea>
+        </div>
+    </section>
+
+    <div class="copyrights">
+        <p>&copy; NITT 2025</p>
+    </div>
+</body>
+</html>

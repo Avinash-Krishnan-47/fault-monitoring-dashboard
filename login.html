@@ -13,11 +13,14 @@
 
             <img src = "rna.png" alt = "A pic representing RNA" class = "RNA-picture">
             <form class = "login-form">
-                <input type = "text" class = "login-input" name = "username" placeholder = "Username or E-mail">
+                <input id = "login-uname" type = "text" class = "login-input" name = "username" placeholder = "Username or E-mail">
                 <br>
-                <input type = "password" class = "login-input" name = "password" placeholder = "Password">
+                <input id = "login-pswd" type = "password" class = "login-input" name = "password" placeholder = "Password">
                 <br>
-                <button type = "submit" class = "sign-in-button"> Sign In </button>
+                <button id = "login-button" type = "submit" class = "sign-in-button"> Sign In </button>
+                <div class = "login-unsuccessful">
+
+                </div>
             </form>
 
             <div class = "not-able-to-login">
@@ -51,6 +54,7 @@
                 <textarea id = "feedback-space" placeholder = " Write your feedback here ...." name = "feedback" rows = "5" cols = "40"></textarea>
             </div>
         </section>
+        <script src = "loginScript.js"></script>
         <div class = "copyrights">
             <p> &copy; NITT 2025 </p> 
         </div>

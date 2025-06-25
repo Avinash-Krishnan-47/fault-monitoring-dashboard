@@ -3,6 +3,7 @@
     padding: 0;
     box-sizing: border-box;
 }
+
 body {
     background-color: lightblue;
     font-family: sans-serif;
@@ -23,62 +24,68 @@ body {
     font-weight: bold;
     font-size: 16px;
 }
-.login-container {
-    width: 375px;
-    margin: 80px auto;
-    padding: 20px;
-    border: none;
+
+.maintenance-container {
+    width: 420px;
+    margin: 60px auto;
     background-color: whitesmoke;
+    padding: 25px;
+    border-radius: 5px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
+
 .RNA-picture {
     width: 60px;
     height: 60px;
     display: block;
-    margin: 5px auto 35px;
+    margin: 5px auto 20px;
 }
-.login-input {
+
+.schedule-title {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #333;
+}
+
+.maintenance-form label {
+    font-weight: bold;
     display: block;
+    margin-top: 15px;
+}
+
+.maintenance-input {
     width: 100%;
-    font-size: 15px;
-    border: 0.5px solid rgba(0, 0, 0, 0.301);
     padding: 10px;
-    color: rgba(0, 0, 0, 0.575);
+    margin-top: 5px;
     margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 14px;
 }
-.login-input:hover {
-    border: 1px solid black;
-    border-radius: 3.5px;
-}
-.login-input:focus {
-    box-shadow: 0 0 25px rgba(212, 81, 4, 0.2);
-    border: 1px solid black;
+
+.maintenance-input:focus {
+    border: 1px solid orangered;
+    box-shadow: 0 0 10px rgba(255, 69, 0, 0.3);
     outline: none;
 }
-#sign-up-button {
-    display: block;
+
+.schedule-button {
+    margin-top: 20px;
     width: 100%;
-    margin-top: 30px;
-    color: white;
+    padding: 12px;
     background-color: rgb(2, 2, 41);
-    opacity: 0.95;
-    padding: 10px;
+    color: white;
     font-size: 15px;
     border: none;
     cursor: pointer;
 }
-#sign-up-button:hover {
+
+.schedule-button:hover {
     background-color: #8bb3b4;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
-.not-able-to-login {
-    margin-top: 10px;
-    text-align: center;
-}
-.not-able-to-login a {
-    text-decoration: none;
-    color: #565656;
-    font-size: 16px;
-}
+
+/* Footer */
 .bottom {
     display: flex;
     background-color: #EAEAEA;
@@ -86,30 +93,32 @@ body {
     justify-content: space-around;
     align-items: flex-start;
 }
+
 .text {
     font-size: 20px;
     font-weight: bold;
-    font-family: 'Times New Roman', Times, serif;
     color: #303030;
 }
+
 .mail, .phone {
     color: rgb(104, 104, 104);
     text-decoration: none;
 }
+
 .link-home-dash {
     list-style: none;
-    padding: 0;
 }
+
 .link-dash {
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     text-decoration: none;
     color: rgb(104, 104, 104);
 }
+
 #feedback-space {
     border: none;
     width: 100%;
-    padding: 5px;
 }
+
 .copyrights {
     text-align: center;
     padding: 20px 40px;

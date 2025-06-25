@@ -23,19 +23,22 @@
     <div class="login-container">
         <img src="rna.png" alt="A pic representing RNA" class="RNA-picture">
         <form class="login-form">
-            <input type="text" class="login-input" name="username" placeholder="Username">
+            <input id = "uname" type="text" class="login-input" name="username" placeholder="Username" required>
             <br>
-            <input type="email" class="login-input" name="email" placeholder="Email">
+            <input id = "mail" type="email" class="login-input" name="email" placeholder="Email" required>
             <br>
-            <input type="password" class="login-input" name="password" placeholder="Password">
+            <input id = "pswd" type="password" class="login-input" name="password" placeholder="Password" required>
             <br>
-            <input type="password" class="login-input" name="confirm-password" placeholder="Confirm Password">
+            <input id = "confirm-pswd" type="password" class="login-input" name="confirm-password" placeholder="Confirm Password" required>
             <br>
-            <button type="submit" class="sign-in-button">Sign Up</button>
+            <div class = "password-not-matching">
+
+            </div>
+            <button type="submit" id="sign-up-button">Sign Up</button>
         </form>
 
         <div class="not-able-to-login">
-            <a href="index.html">Already have an account? Login</a>
+            <a href="login.html">Already have an account? Login</a>
         </div>
     </div>
 
@@ -61,6 +64,7 @@
         </div>
     </section>
 
+    <script src = "script.js"></script>
     <div class="copyrights">
         <p>&copy; NITT 2025</p>
     </div>
