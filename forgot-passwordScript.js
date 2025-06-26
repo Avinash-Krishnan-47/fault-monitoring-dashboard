@@ -2,7 +2,7 @@ const submit_button = document.getElementById("forgot-password-button") ;
 
 submit_button.addEventListener("click" , function(event){
     event.preventDefault() ; 
-    const email = document.getElementById("forgot-password-email").value ;
+    const email = document.getElementById("forgot-password-email").value ; 
     const formData = new URLSearchParams() ; 
     formData.append("email" , email) ; 
 

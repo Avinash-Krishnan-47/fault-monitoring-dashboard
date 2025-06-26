@@ -54,4 +54,15 @@ public class ForgotPasswordController {
             return false ;
         }
     }
+
+    @PostMapping("/code-input")
+    public String codeInputTaker(@RequestParam("code") String code){
+        String token = service.token ;
+        if(token.equals(code)){
+            System.out.println("Code verified and you can progress to the next stage") ;
+            return "Code verified successfully" ;
+        }
+        System.out.println("Invalid code provided by the user") ;
+        return "Invalid code" ;
+    }
 }

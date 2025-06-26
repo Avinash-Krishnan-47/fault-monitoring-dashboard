@@ -12,11 +12,12 @@ public class EmailService {
     @Autowired
     public JavaMailSender javaMailSender ;
 
+    String token = generateCode() ;
+
     public void setJavaMailSender(String email){
         SimpleMailMessage sm = new SimpleMailMessage() ;
         sm.setSubject("Your Password reset code") ;
         sm.setTo(email) ;
-        String token = generateCode() ;
         sm.setText("Your code for requested Password change is : " + token + "\n" + "Use this code to reset your password") ;
 
         javaMailSender.send(sm) ;
@@ -26,5 +27,9 @@ public class EmailService {
     public String generateCode(){
         String key = UUID.randomUUID().toString().replace("-" , "").substring(0,8) ;
         return key ;
+    }
+
+    public boolean matches(String code){
+        return code.equals(token) ;
     }
 }
