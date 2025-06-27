@@ -13,6 +13,7 @@ public class LoginController {
     String username = "loginUsers" ;
     String password = "avinashkrishnan4832" ;
 
+    JWTUtil jwt = new JWTUtil() ;
     @PostMapping("/currentuser")
     public String loginIntoAccount(@RequestParam("uname") String uname , @RequestParam("pswd") String pswd){
         if(!checker(uname)){
@@ -30,10 +31,11 @@ public class LoginController {
             ResultSet rset = stmt.executeQuery() ;
             boolean exists = rset.next() ;
             if(exists){
-                System.out.println("Login Successful") ;
-                return "Login successful" ;
+                String token = jwt.generateToken(uname) ;
+                System.out.println("Login successful !!") ;
+                return "Bearer " + token ;
             }
-            return "Incorrect Password" ;
+            return "Incorrect Password" ; 
         }
         catch(SQLException e){
             System.out.println("Database error occured in the login Function !!") ;

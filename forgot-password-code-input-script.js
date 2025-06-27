@@ -18,7 +18,7 @@ submit_button.addEventListener("click" , function(event){
     .then(data => {
         console.log(data) ; 
         if(data === "Code verified successfully"){
-            window.location.href = "create-new-password" ; 
+            window.location.href = "create-new-password.html" ; 
             return ; 
         }
         updateForUser(data) ; 
