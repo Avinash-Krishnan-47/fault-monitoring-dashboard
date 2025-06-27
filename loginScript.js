@@ -19,7 +19,8 @@ submit_login_button.addEventListener("click" , function(event){
     .then(response => response.text())
     .then(data => {
         console.log(data) ; 
-        if(data == "Login successful"){
+        if(data.startsWith("Bearer ")){
+            localStorage.setItem("jwttoken" , data.substring(7)) ; 
             window.location.href = "home.html" ; 
             return ; 
         }

@@ -35,7 +35,7 @@ public class LoginController {
                 System.out.println("Login successful !!") ;
                 return "Bearer " + token ;
             }
-            return "Incorrect Password" ; 
+            return "Incorrect Password" ;
         }
         catch(SQLException e){
             System.out.println("Database error occured in the login Function !!") ;
