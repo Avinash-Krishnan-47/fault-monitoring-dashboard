@@ -20,19 +20,21 @@ submit_login_button.addEventListener("click" , function(event){
     .then(data => {
         console.log(data) ; 
         if(data.startsWith("Bearer ")){
-            localStorage.setItem("jwttoken" , data.substring(7)) ; 
+            localStorage.setItem("jwttoken" , data.substring(7)) ;
+            console.log(data.substring(7)) ; 
             window.location.href = "home.html" ; 
             return ; 
         }
-        userLoginUpdate(data) ; 
+        userLoginUpdate() ; 
     })
     .catch(err => {
-        console.err(err) ; 
+        console.error(err) ; 
         alert("Login failed due to server side error !!") ; 
     }) ; 
 }) ; 
 
-function userLoginUpdate(data){
+
+function userLoginUpdate(){
     const elements = document.getElementsByClassName("login-unsuccessful") ; 
 
     if(elements.length == 0){
@@ -40,7 +42,7 @@ function userLoginUpdate(data){
     }
 
     const paragraph = document.createElement("p") ; 
-    paragraph.textContent = data ; 
+    paragraph.textContent = "Incorrect Password entered" ; 
 
     elements[0].appendChild(paragraph) ; 
 }

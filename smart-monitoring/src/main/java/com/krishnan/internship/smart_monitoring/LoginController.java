@@ -1,5 +1,8 @@
 package com.krishnan.internship.smart_monitoring;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.MissingRequestHeaderException;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.*;
@@ -13,29 +16,42 @@ public class LoginController {
     String username = "loginUsers" ;
     String password = "avinashkrishnan4832" ;
 
-    JWTUtil jwt = new JWTUtil() ;
+    @Autowired
+    private PasswordEncoder passwordEncoder ;
+
+    @Autowired
+    JWTUtil jwt ;
     @PostMapping("/currentuser")
     public String loginIntoAccount(@RequestParam("uname") String uname , @RequestParam("pswd") String pswd){
         if(!checker(uname)){
             System.out.println("Username not found") ;
             return "No user found with the given username . Please signup instead !" ;
         }
-        String sqlStatement = "SELECT 1 FROM availableUsers WHERE (username = ? OR email = ?) AND pswd = ?" ;
+        String sqlStatement = "SELECT pswd FROM availableUsers WHERE (username = ? OR email = ?)" ;
         try{
             Connection myConn = DriverManager.getConnection(dbUrl , username , password) ;
             System.out.println("Database connection given successfully for the login function !!") ;
             PreparedStatement stmt = myConn.prepareStatement(sqlStatement) ;
             stmt.setString(1 , uname) ;
             stmt.setString(2 , uname) ;
-            stmt.setString(3 , pswd) ;
             ResultSet rset = stmt.executeQuery() ;
             boolean exists = rset.next() ;
             if(exists){
-                String token = jwt.generateToken(uname) ;
-                System.out.println("Login successful !!") ;
-                return "Bearer " + token ;
+                String hashedPassword = rset.getString("pswd") ;
+                if(passwordEncoder.matches(pswd , hashedPassword)){
+                    String token = jwt.generateToken(uname) ;
+                    System.out.println("Login successful !!") ;
+                    return "Bearer " + token ;
+                }
+                else{
+                    System.out.println("Incorrect password") ;
+                    return "Incorrect password" ;
+                }
             }
-            return "Incorrect Password" ;
+            else{
+                System.out.println("No user found") ;
+                return "No user found" ;
+            }
         }
         catch(SQLException e){
             System.out.println("Database error occured in the login Function !!") ;
@@ -57,6 +73,20 @@ public class LoginController {
         }
         catch(SQLException e){
             System.out.println("Database error occured in the checker function") ;
+            e.printStackTrace() ;
+            return false ;
+        }
+    }
+
+    @GetMapping("/content-load")
+    public boolean isValidToken(@RequestHeader("Authorization") String auth){
+        try{
+            String token = auth.substring(7) ;
+            System.out.println("Valid token") ;
+            return jwt.isValidToken(token) ;
+        }
+        catch (Exception e){
+            System.out.println("There is an exception underlying with") ;
             e.printStackTrace() ;
             return false ;
         }

@@ -12,24 +12,24 @@ public class EmailService {
     @Autowired
     public JavaMailSender javaMailSender ;
 
-    String token = generateCode() ;
+    @Autowired
+    private RedisService redisService ;
 
     public void setJavaMailSender(String email){
+        String token = generateCode() ;
         SimpleMailMessage sm = new SimpleMailMessage() ;
         sm.setSubject("Your Password reset code") ;
         sm.setTo(email) ;
         sm.setText("Your code for requested Password change is : " + token + "\n" + "Use this code to reset your password") ;
 
+        redisService.storeCode(email , token , 7) ;
         javaMailSender.send(sm) ;
+
         System.out.println("Mail sent successfully !!") ;
     }
 
     public String generateCode(){
         String key = UUID.randomUUID().toString().replace("-" , "").substring(0,8) ;
         return key ;
-    }
-
-    public boolean matches(String code){
-        return code.equals(token) ;
     }
 }

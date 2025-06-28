@@ -22,12 +22,18 @@ public class ForgotPasswordController {
         this.service = service ;
     }
 
+    @Autowired
+    private RedisService redisService ;
+
+    private String eMail = null ;
+
     @PostMapping("/codegenerator")
     public String setCode(@RequestParam("email") String email){
         if(!checker(email)){
             System.out.println("Email not exist for setCode function") ;
             return "Email does not exist" ;
         }
+        eMail = email ;
         service.setJavaMailSender(email) ;
         return "Mail Sent successfully" ;
     }
@@ -57,9 +63,12 @@ public class ForgotPasswordController {
 
     @PostMapping("/code-input")
     public String codeInputTaker(@RequestParam("code") String code){
-        String token = service.token ;
-        if(token.equals(code)){
-            System.out.println("Code verified and you can progress to the next stage") ;
+        if(eMail == null){
+            return "Invalid email" ;
+        }
+        if(redisService.getCode(eMail).equals(code)){
+            System.out.println("Code verified successfully") ;
+            redisService.deleteCode(eMail) ;
             return "Code verified successfully" ;
         }
         System.out.println("Invalid code provided by the user") ;

@@ -19,8 +19,10 @@
             </ul>
             </div>
             <ul class = "acc-login">
-                <li><a href = "signup.html"> SignUp </a></li>
-                <li><a href = "login.html" id = "login-acc"> Login </a></li>
+                <li><a href = "signup.html" id = "signup-acc" style="display:none"> SignUp </a></li>
+                <li><a href = "login.html" id = "login-acc" style="display:none"> Login </a></li>
+                <button id = "profile-pic" style="display:none"><img src = "Sample_User_Icon.png" alt = "Profile User image"></button>
+                <button id = "logout-btn" style = "display:none"> Logout </button>
             </ul>
         </nav>
         <section id = "equipment">
@@ -36,7 +38,7 @@
                 <strong><em> Instrumentation </em></strong> and <strong><em>Production </em></strong> engineering applications .
             </p>
             <br>
-            <p> Users can input key equipment parameters such as <strong>temperature, vibration, pressure, and humidit<strong> to assess the operational health of their machines. The system operates entirely on simulated or manually entered data, making it ideal for research, academic projects, and skill development. No physical sensors or external hardware are required. This platform encourages predictive maintenance, minimizes equipment downtime, and supports the adoption of <strong>Industry 4.0</strong> practices. </p>
+            <p> Users can input key equipment parameters such as <strong>temperature, vibration, pressure, and humidity</strong> to assess the operational health of their machines. The system operates entirely on simulated or manually entered data, making it ideal for research, academic projects, and skill development. No physical sensors or external hardware are required. This platform encourages predictive maintenance, minimizes equipment downtime, and supports the adoption of <strong>Industry 4.0</strong> practices. </p>
             <section id = "clicker">
                 <button onclick = "window.location.href = 'dashboard.html'"> Predict now </button>
                 <button onclick = "window.location.href = 'maintenance.html'"> Schedule Maintenance </button>
@@ -62,6 +64,7 @@
                 <textarea id = "feedback-space" placeholder = " Write your feedback here ...." name = "feedback" rows = "5" cols = "40"></textarea>
             </div>
         </section>
+        <script src = "homeScript.js"></script>
         <div class = "copyrights">
             <p> &copy; NITT 2025 </p> 
         </div>
