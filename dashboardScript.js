@@ -3,10 +3,17 @@ const submit_button = document.getElementById("predict-health-button") ;
 submit_button.addEventListener("click" , function(event){
     event.preventDefault() ; 
 
+    const jwt = localStorage.getItem("jwttoken") ; 
+    if(jwt == null || jwt.length == 0){
+        alert("Please login first") ; 
+        window.location.href = 'login.html' ; 
+        return ; 
+    }
+
     const temperature = document.getElementById("temp").value ; 
     const pressure = document.getElementById("pre").value ; 
     const vibration = document.getElementById("vib").value ; 
-    const humidity = document.getElementById("humid").value ; 
+    const humidity = document.getElementById("hum").value ; 
 
     const tempUnit = document.getElementById("temp-units").value ; 
     const presUnit = document.getElementById("pre-units").value ; 
@@ -27,6 +34,7 @@ submit_button.addEventListener("click" , function(event){
     const response = fetch("http://localhost:8080/dashboard/input-parameters" , {
         method : "POST" , 
         headers : {
+            "Authorization" : "Bearer " + jwt ,
             "Content-Type" : "application/x-www-form-urlencoded" 
         } , 
         body : formData.toString() 
@@ -34,9 +42,12 @@ submit_button.addEventListener("click" , function(event){
     .then(response => response.text())
     .then(data => {
         console.log(data) ; 
+        updateStatus(data) ; 
     })
     .catch(err => {
-        console.error(err) ; 
+        console.error('Some backend problem occured ...' + err) ; 
+        alert("Session expired . Please login again ") ; 
+        window.location.href = "login.html" ; 
     }) ; 
 }) ; 
 
@@ -72,4 +83,30 @@ function vibrationConverter(vibration , vibrationUnit){
 
 function humidityConverter(humidity , humidUnit){
     return humidity ; 
+}
+
+function updateStatus(data) {
+    console.log("Inside updateStatus(), received:", data);
+
+    const element = document.getElementById("status-output");
+    if (!element) {
+        console.error("❌ status-output div not found.");
+        return;
+    }
+
+    // Clear previous output (optional)
+    element.innerHTML = "<h4>Status:</h4>";
+
+    const paragraph = document.createElement("p");
+    paragraph.textContent = data;
+    paragraph.style.color = "black";
+    paragraph.style.fontSize = "18px";
+    paragraph.style.padding = "10px";
+
+    element.appendChild(paragraph);
+    element.style.display = "block"; // Make sure it's visible
+    element.style.border = "1px solid black"; // Debug styling
+    element.style.backgroundColor = "#e0f7fa"; // Light cyan for testing
+
+    console.log("✅ Appended data to status-output.");
 }

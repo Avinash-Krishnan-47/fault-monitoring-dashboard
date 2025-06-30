@@ -9,7 +9,7 @@ public class SmartMonitoringApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SmartMonitoringApplication.class, args) ;
-		System.out.println("Application started successfully") ;
+		System.out.println("Application started successfully") ; 
 	}
 
 }

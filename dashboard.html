@@ -15,11 +15,11 @@
             <ul class = "normal">
                 <li><a href = "home.html" class = "dash"> Home </a></li>
                 <li><a href = "dashboard.html"  class = "dash"> Dashboard </a></li> 
-                <li><a href = "visualize.html" class = "dash"> Visualize </a></li>
+                <li><a href = "maintenance.html" class = "dash"> Maintenance </a></li>
             </ul>
             </div>
             <ul class = "acc-login">
-                <li><a href = "signup.html"> SignUp </a></li>
+                <li><a href = "signup.html" id = "signup-acc"> SignUp </a></li>
                 <li><a href = "login.html" id = "login-acc"> Login </a></li>
             </ul>
         </nav>
@@ -33,7 +33,7 @@
 
                 <div class = "input-group">
                     <label for = "temp"> Temperature : </label>
-                    <input id = "temp" type = "text" name = "temperature" class = "input-box">
+                    <input id = "temp" type = "number" name = "temperature" class = "input-box">
                     <label for = "temp-units"></label>
                     <select id = "temp-units" name = "temp-units">
                         <option value = "celcius"> C </option>
@@ -45,7 +45,7 @@
 
                 <div class = "input-group">
                     <label for = "pre"> Pressure : </label>
-                    <input id = "pre" type = "text" name = "pressure" class = "input-box">
+                    <input id = "pre" type = "number" name = "pressure" class = "input-box">
                     <label for = "pre-units"></label>
                     <select id = "pre-units" name = "pressure-units">
                         <option value = "bar"> bar </option>
@@ -58,7 +58,7 @@
 
                 <div class = "input-group">
                     <label for = "vib"> Vibration : </label>
-                    <input id = "vib" type = "text" name = "vibration" class = "input-box">
+                    <input id = "vib" type = "number" name = "vibration" class = "input-box">
                     <label for = "vib-units"></label>
                     <select id = "vib-units" name = "vibration-units">
                         <option value = "mms">mm/s</option>
@@ -69,7 +69,7 @@
 
                 <div class = "input-group">
                     <label for = "hum"> Humidity : </label>
-                    <input id = "hum" type = "text" name = "Humidity" class = "input-box">
+                    <input id = "hum" type = "number" name = "Humidity" class = "input-box">
                     <label for = "hum-units"></label>
                     <select id = "hum-units" name = "humidity-units">
                         <option value = "rh">%RH</option>
@@ -84,9 +84,9 @@
 
         <div class = "output-section">
             <h2> View your output status : </h2>
-            <h4> Status : </h4>
-            <h4> Causes : </h4>
-            <h4> Possible Solution : </h4>
+            <div id = "status-output"><h4> Status : </h4></div>
+            <div id = "cause-output"><h4> Causes : </h4></div>
+            <div id = "soln-output"><h4> Possible Solution : </h4></div>
         </div>
 
         <div class = "history-section">

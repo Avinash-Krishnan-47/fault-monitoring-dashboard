@@ -254,3 +254,9 @@ select:focus{
     text-align : center ; 
     padding : 20px 40px ; 
 }
+#status-output p {
+    font-size: 18px;
+    padding: 10px 20px;
+    color: #333;
+    font-family: sans-serif;
+}
