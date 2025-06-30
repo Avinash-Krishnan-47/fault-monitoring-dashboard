@@ -186,7 +186,7 @@ select:focus{
     text-align : left ; 
 }
 .output-positive{      /* This is for a positive output section */ 
-    background-color : green ; 
+    background-color : rgba(6, 196, 6, 0.63) ; 
     color : #155274 ; 
     border : 2px solid #c3e6cb ; 
 }

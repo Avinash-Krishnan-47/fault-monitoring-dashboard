@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.sql.*;
 
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/signup")
 public class SignupController {

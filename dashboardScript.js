@@ -86,27 +86,28 @@ function humidityConverter(humidity , humidUnit){
 }
 
 function updateStatus(data) {
-    console.log("Inside updateStatus(), received:", data);
+    const elements = document.getElementsByClassName("output-section") ; 
 
-    const element = document.getElementById("status-output");
-    if (!element) {
-        console.error("❌ status-output div not found.");
-        return;
+    const element = document.getElementById("status-output") ; 
+
+    const span = document.getElementById("status-value") ; 
+
+    if(data === "\"Healthy\""){
+        elements[0].style.backgroundColor = "green" ; 
+        span.textContent = data ; 
+        span.style.fontSize = "17px" ; 
+        span.style.color = "darkblue" ; 
+        span.style.fontFamily = "sans-serif" ; 
+        span.style.textTransform = "uppercase" ; 
+    }
+    else{
+        elements[0].style.backgroundColor = "red" ; 
+        span.textContent = data ; 
+        span.style.fontSize = "17px" ; 
+        span.style.color = "#721c24" ; 
+        span.style.fontFamily = "sans-serif" ; 
+        span.style.textTransform = "uppercase" ; 
     }
 
-    // Clear previous output (optional)
-    element.innerHTML = "<h4>Status:</h4>";
-
-    const paragraph = document.createElement("p");
-    paragraph.textContent = data;
-    paragraph.style.color = "black";
-    paragraph.style.fontSize = "18px";
-    paragraph.style.padding = "10px";
-
-    element.appendChild(paragraph);
-    element.style.display = "block"; // Make sure it's visible
-    element.style.border = "1px solid black"; // Debug styling
-    element.style.backgroundColor = "#e0f7fa"; // Light cyan for testing
-
-    console.log("✅ Appended data to status-output.");
+    console.log("This is the updated version") ; 
 }
