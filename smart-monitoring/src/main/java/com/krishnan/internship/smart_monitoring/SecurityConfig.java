@@ -23,7 +23,7 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable()) // Disable CSRF for APIs
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // No sessions
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/login/**", "/signup/**", "/forgot-password/**").permitAll() // Public endpoints
+                        .requestMatchers("/login/**", "/signup/**", "/forgot-password/**" , "/dashboard/**").permitAll() // Public endpoints
                         .anyRequest().authenticated() // Secure all others
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class) // Add your JWT filter

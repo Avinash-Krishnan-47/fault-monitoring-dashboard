@@ -43,6 +43,32 @@ submit_button.addEventListener("click" , function(event){
     .then(data => {
         console.log(data) ; 
         updateStatus(data) ; 
+        const equipment = "motor" ; 
+        const formData1 = new URLSearchParams() ; 
+        formData1.append("equipment" , equipment) ; 
+        formData1.append("temp" , temp) ; 
+        formData1.append("pres" , press) ; 
+        formData1.append("vib" , vib) ; 
+        formData1.append("humid" , humid) ; 
+        if(data === "\"Faulty\""){
+            const res = fetch("http://localhost:8080/dashboard/causes" , {
+                method : "POST" , 
+                headers : {
+                    "Authorization" : "Bearer " + jwt , 
+                    "Content-Type" : "application/x-www-form-urlencoded"
+                } , 
+                body : formData1.toString()
+            })
+            .then(res => {return res.text()})
+            .then(d =>{
+                console.log(d) ; 
+                console.log(typeof(d)) ; 
+                splitter(d) ; 
+            })
+            .catch(err => {
+                console.error(err) ; 
+            }) ; 
+        }
     })
     .catch(err => {
         console.error('Some backend problem occured ...' + err) ; 
@@ -110,4 +136,28 @@ function updateStatus(data) {
     }
 
     console.log("This is the updated version") ; 
+}
+
+function splitter(data){
+    const arr = data.split(".") ; 
+    
+    const cause = document.getElementById("cause-value") ; 
+    const soln = document.getElementById("solution-value") ; 
+
+    if(arr.length < 2){
+        return ;
+    }
+    cause.textContent = arr[0] ; 
+    cause.fontSize = "17px" ; 
+    cause.fontFamily = "sans-serif" ; 
+    cause.color = "yellow" ; 
+
+    soln.textContent = arr[1] ; 
+    soln.fontSize = "17px" ; 
+    soln.fontFamily = "sans-serif" ; 
+    soln.color = "yellow" ; 
+
+    console.log("Am parsing the splitter function here...") ; 
+
+    return ; 
 }
