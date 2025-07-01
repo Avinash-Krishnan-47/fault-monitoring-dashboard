@@ -148,16 +148,37 @@ function splitter(data){
         return ;
     }
     cause.textContent = arr[0] ; 
-    cause.fontSize = "17px" ; 
-    cause.fontFamily = "sans-serif" ; 
-    cause.color = "yellow" ; 
+    cause.style.fontSize = "17px" ; 
+    cause.style.fontFamily = "sans-serif" ; 
+    cause.style.color = "yellow" ; 
 
     soln.textContent = arr[1] ; 
-    soln.fontSize = "17px" ; 
-    soln.fontFamily = "sans-serif" ; 
-    soln.color = "yellow" ; 
+    soln.style.fontSize = "17px" ; 
+    soln.style.fontFamily = "sans-serif" ; 
+    soln.style.color = "yellow" ; 
 
     console.log("Am parsing the splitter function here...") ; 
 
     return ; 
+}
+
+function addToTable(timeStamp , temperature , pressure , vibration , humidity , statusMonitor){
+    const table = document.getElementById("history-logs") ; 
+    const newrow = table.insertRow(0) ; 
+
+    const cell1 = newrow.insertCell(0) ; 
+    const cell2 = newrow.insertCell(1) ; 
+    const cell3 = newrow.insertCell(2) ; 
+    const cell4 = newrow.insertCell(3) ; 
+    const cell5 = newrow.insertCell(4) ; 
+    const cell6 = newrow.insertCell(5) ; 
+
+    cell1.textContent = timeStamp ; 
+    cell2.textContent = temperature ; 
+    cell3.textContent = pressure ; 
+    cell4.textContent = vibration ; 
+    cell5.textContent = humidity ; 
+    cell6.textContent = statusMonitor ; 
+
+    console.log("Inserted values successfully...") ; 
 }
