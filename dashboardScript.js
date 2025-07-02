@@ -1,3 +1,11 @@
+window.addEventListener("DOMContentLoaded" , () => {
+    const jwt = localStorage.getItem("jwttoken") ; 
+    if(jwt == null || jwt.length == 0){
+        window.location.href = 'login.html' ; 
+        return ; 
+    }
+})
+
 const submit_button = document.getElementById("predict-health-button") ; 
 
 submit_button.addEventListener("click" , function(event){

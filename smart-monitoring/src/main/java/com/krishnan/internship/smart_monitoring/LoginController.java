@@ -12,6 +12,9 @@ import java.sql.*;
 @RequestMapping("/login")
 public class LoginController {
 
+    @Autowired
+    private RedisService redisService ;
+
     String dbUrl = "jdbc:mysql://127.0.0.1:3306/loginDB" ;
     String username = "loginUsers" ;
     String password = "avinashkrishnan4832" ;
@@ -40,6 +43,7 @@ public class LoginController {
                 String hashedPassword = rset.getString("pswd") ;
                 if(passwordEncoder.matches(pswd , hashedPassword)){
                     String token = jwt.generateToken(uname) ;
+                    redisService.storeToken(token , 10) ;
                     System.out.println("Login successful !!") ;
                     return "Bearer " + token ;
                 }
@@ -83,7 +87,7 @@ public class LoginController {
         try{
             String token = auth.substring(7) ;
             System.out.println("Valid token") ;
-            return jwt.isValidToken(token) ;
+            return redisService.isValidToken(token) ;
         }
         catch (Exception e){
             System.out.println("There is an exception underlying with") ;

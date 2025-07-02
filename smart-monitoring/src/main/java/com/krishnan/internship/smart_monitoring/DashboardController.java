@@ -108,7 +108,7 @@ public class DashboardController {
                 dashboardParams.setVibration(rset.getFloat("vibration")) ;
                 dashboardParams.setHumidity(rset.getFloat("humidity")) ;
                 dashboardParams.setStatusMonitor(rset.getString("statusMonitor")) ;
-                list.add(dashboardParams) ;
+                list.add(dashboardParams) ; 
             }
             System.out.println(list) ;
             return list ;
