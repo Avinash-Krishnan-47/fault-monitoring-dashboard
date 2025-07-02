@@ -69,6 +69,27 @@ submit_button.addEventListener("click" , function(event){
                 console.error(err) ; 
             }) ; 
         }
+        else{
+            const cause = document.getElementById("cause-value") ; 
+            const soln = document.getElementById("solution-value") ; 
+            cause.textContent = '-' ; 
+            soln.textContent = '-' ; 
+        }
+        const responseTable = fetch("http://localhost:8080/dashboard/retrieve-data-after" , {
+            method : "GET" , 
+            headers : {
+                "Authorization" : "Bearer " + jwt
+            }
+        })
+        .then(responseTable => responseTable.json())
+        .then(data => {
+            console.log(data) ; 
+            const firstEntry = data[0] ; 
+            addToTable(firstEntry.timestamp , firstEntry.temperature , firstEntry.pressure , firstEntry.vibration , firstEntry.humidity , firstEntry.statusMonitor) ; 
+        })
+        .catch(err => {
+            console.error('An error occured at the responseTable fetch : ' + err) ; 
+        }) ; 
     })
     .catch(err => {
         console.error('Some backend problem occured ...' + err) ; 
@@ -164,7 +185,7 @@ function splitter(data){
 
 function addToTable(timeStamp , temperature , pressure , vibration , humidity , statusMonitor){
     const table = document.getElementById("history-logs") ; 
-    const newrow = table.insertRow(0) ; 
+    const newrow = table.insertRow(1) ; 
 
     const cell1 = newrow.insertCell(0) ; 
     const cell2 = newrow.insertCell(1) ; 

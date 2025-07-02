@@ -20,8 +20,8 @@ public class DashboardController {
     @Autowired
     private JWTUtil jwtUtil ;
 
-    String dbUrl = "jdbc:mysql://localhost:3306/localDB" ;
-    String uname = "loginusers" ;
+    String dbUrl = "jdbc:mysql://localhost:3306/loginDB" ;
+    String uname = "loginUsers" ;
     String password = "avinashkrishnan4832" ;
 
     @Autowired
@@ -58,7 +58,6 @@ public class DashboardController {
             else{
                 return "No user found!!" ;
             }
-            // Have to add a new row for these new values ;
             return res ;
         }
         catch(Exception e){
@@ -88,12 +87,18 @@ public class DashboardController {
         List<DashboardParams> list = new ArrayList<>() ;
         DashboardParams obj = new DashboardParams() ;
         try{
-            String sqlStatement = "SELECT timestmp , temperature , pressure , vibration , humidity , statusMonitor FROM dashboardUsers WHERE username = ? OR email = ?" ;
+            String sqlStatement = "SELECT timestmp , temperature , pressure , vibration , humidity , statusMonitor FROM dashboardUsers WHERE user_id = ? ORDER BY id DESC" ;
             Connection myConn = DriverManager.getConnection(dbUrl , uname , password) ;
+            String sql = "SELECT id FROM availableUsers WHERE username = ? OR email = ? " ;
             String user = jwtUtil.extractUser(auth.substring(7)) ;
+            PreparedStatement stmt1 = myConn.prepareStatement(sql) ;
+            stmt1.setString(1 , user) ;
+            stmt1.setString(2 , user) ;
+            ResultSet rset1 = stmt1.executeQuery() ;
+            rset1.next() ;
+            int id = rset1.getInt("id") ;
             PreparedStatement stmt = myConn.prepareStatement(sqlStatement) ;
-            stmt.setString(1 , user) ;
-            stmt.setString(2 , user) ;
+            stmt.setInt(1 , id) ;
             ResultSet rset = stmt.executeQuery() ;
             while(rset.next()){
                 DashboardParams dashboardParams = new DashboardParams() ;
@@ -105,13 +110,51 @@ public class DashboardController {
                 dashboardParams.setStatusMonitor(rset.getString("statusMonitor")) ;
                 list.add(dashboardParams) ;
             }
-            
-            return list ; 
+            System.out.println(list) ;
+            return list ;
         }
         catch (Exception e){
             e.printStackTrace() ;
-            System.out.println("Exception occured - retriever function") ; 
-            return list ; 
+            System.out.println("Exception occured - retriever function") ;
+            return list ;
+        }
+    }
+
+    @GetMapping("/retrieve-data-after")
+    public List<DashboardParams> retrieverAfter(@RequestHeader("Authorization") String auth){
+        List<DashboardParams> list = new ArrayList<>() ;
+        DashboardParams obj = new DashboardParams() ;
+        try{
+            String sqlStatement = "SELECT timestmp , temperature , pressure , vibration , humidity , statusMonitor FROM dashboardUsers WHERE user_id = ? ORDER BY id DESC LIMIT 1" ;
+            Connection myConn = DriverManager.getConnection(dbUrl , uname , password) ;
+            String sql = "SELECT id FROM availableUsers WHERE username = ? OR email = ? " ;
+            String user = jwtUtil.extractUser(auth.substring(7)) ;
+            PreparedStatement stmt1 = myConn.prepareStatement(sql) ;
+            stmt1.setString(1 , user) ;
+            stmt1.setString(2 , user) ;
+            ResultSet rset1 = stmt1.executeQuery() ;
+            rset1.next() ;
+            int id = rset1.getInt("id") ;
+            PreparedStatement stmt = myConn.prepareStatement(sqlStatement) ;
+            stmt.setInt(1 , id) ;
+            ResultSet rset = stmt.executeQuery() ;
+            while(rset.next()){
+                DashboardParams dashboardParams = new DashboardParams() ;
+                dashboardParams.setTimestamp(rset.getTimestamp("timestmp")) ;
+                dashboardParams.setTemperature(rset.getFloat("temperature")) ;
+                dashboardParams.setPressure(rset.getFloat("pressure")) ;
+                dashboardParams.setVibration(rset.getFloat("vibration")) ;
+                dashboardParams.setHumidity(rset.getFloat("humidity")) ;
+                dashboardParams.setStatusMonitor(rset.getString("statusMonitor")) ;
+                list.add(dashboardParams) ;
+            }
+            System.out.println(list) ;
+            return list ;
+        }
+        catch (Exception e){
+            e.printStackTrace() ;
+            System.out.println("Exception occured - retriever function") ;
+            return list ;
         }
     }
 }

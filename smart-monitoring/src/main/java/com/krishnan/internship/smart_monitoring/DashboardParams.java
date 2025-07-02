@@ -1,5 +1,6 @@
 package com.krishnan.internship.smart_monitoring;
 
+import org.hibernate.annotations.CurrentTimestamp;
 import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
