@@ -11,6 +11,7 @@ submit_login_button.addEventListener("click" , function(event){
 
     const response = fetch("http://localhost:8080/login/currentuser" , {
         method : "POST" , 
+        credentials : "include" , 
         headers : {
             "Content-Type" : "application/x-www-form-urlencoded" 
         },
@@ -19,9 +20,7 @@ submit_login_button.addEventListener("click" , function(event){
     .then(response => response.text())
     .then(data => {
         console.log(data) ; 
-        if(data.startsWith("Bearer ")){
-            localStorage.setItem("jwttoken" , data.substring(7)) ;
-            console.log(data.substring(7)) ; 
+        if(data === "Login successful"){
             window.location.href = "home.html" ; 
             return ; 
         }
@@ -29,7 +28,11 @@ submit_login_button.addEventListener("click" , function(event){
     })
     .catch(err => {
         console.error(err) ; 
-        alert("Login failed due to server side error !!") ; 
+        Swal.fire({
+            title : 'Database error occured..' , 
+            text : 'Server side problem .. Please stay tuned...' , 
+            icon : 'error'
+        }) ; 
     }) ; 
 }) ; 
 
@@ -41,8 +44,13 @@ function userLoginUpdate(){
         return ; 
     }
 
-    const paragraph = document.createElement("p") ; 
-    paragraph.textContent = "Incorrect Password entered" ; 
+    const span = document.getElementById("login-unsuccessful-span") ; 
+    span.textContent = "Incorrect Password entered" ; 
+    span.style.display = "block" ; 
+    span.style.color = "red" ; 
+    span.style.fontSize = "14px" ; 
+    span.style.fontFamily = "sans-serif" ; 
+    span.style.margin = "10px auto" ; 
 
     elements[0].appendChild(paragraph) ; 
 }

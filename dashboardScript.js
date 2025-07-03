@@ -1,9 +1,46 @@
 window.addEventListener("DOMContentLoaded" , () => {
-    const jwt = localStorage.getItem("jwttoken") ; 
-    if(jwt == null || jwt.length == 0){
-        window.location.href = 'login.html' ; 
-        return ; 
-    }
+    console.log('Entering into the dashboardscript') ; 
+    fetch("http://localhost:8080/dashboard/retrieve-data" , {
+        method : "GET" , 
+        credentials : "include"
+    })
+    .then(res => {
+        if(res.status === 401 || res.status === 403){
+            console.log('403 error or 401 error') ; 
+            return(Swal.fire({
+                title : 'Login required as authorization not provided with' , 
+                text : 'Authentication required' , 
+                icon : 'error'
+            })).then(data => {
+                window.location.href = 'login.html' ; 
+                return ; 
+            })
+        }
+        return res.json() ; 
+    })
+    .then(data => {
+        if(!data){
+            console.log('No data is there') ; 
+        }
+        for(let i = 0 ; i < data.length ; i++){
+            let item = data[i] ; 
+            addToTable(item.timestamp , item.temperature , item.pressure , item.vibration , item.humidity , item.statusMonitor) ; 
+        }
+    })
+    .catch(err => {
+        console.log('I am into the catch part of dashboardScript') ; 
+        Swal.fire({
+            title : 'Please login first' , 
+            text : err , 
+            icon : 'error'
+        })
+        .then((result) => {
+            if(result.isConfirmed){
+                window.location.href = "login.html" ; 
+                console.error('An error occured upon loading the data : ' + err) ; 
+            }
+        })
+    }) ; 
 })
 
 const submit_button = document.getElementById("predict-health-button") ; 
@@ -11,17 +48,19 @@ const submit_button = document.getElementById("predict-health-button") ;
 submit_button.addEventListener("click" , function(event){
     event.preventDefault() ; 
 
-    const jwt = localStorage.getItem("jwttoken") ; 
-    if(jwt == null || jwt.length == 0){
-        alert("Please login first") ; 
-        window.location.href = 'login.html' ; 
-        return ; 
-    }
-
     const temperature = document.getElementById("temp").value ; 
     const pressure = document.getElementById("pre").value ; 
     const vibration = document.getElementById("vib").value ; 
     const humidity = document.getElementById("hum").value ; 
+
+    if(!temperature || !pressure || !vibration || !humidity){
+        Swal.fire({
+            title : 'Insert all the values' ,
+            text : 'Please insert all the four values' , 
+            icon : 'success'
+        }) ; 
+        return ; 
+    }
 
     const tempUnit = document.getElementById("temp-units").value ; 
     const presUnit = document.getElementById("pre-units").value ; 
@@ -41,8 +80,8 @@ submit_button.addEventListener("click" , function(event){
 
     const response = fetch("http://localhost:8080/dashboard/input-parameters" , {
         method : "POST" , 
+        credentials : "include" , 
         headers : {
-            "Authorization" : "Bearer " + jwt ,
             "Content-Type" : "application/x-www-form-urlencoded" 
         } , 
         body : formData.toString() 
@@ -61,8 +100,8 @@ submit_button.addEventListener("click" , function(event){
         if(data === "\"Faulty\""){
             const res = fetch("http://localhost:8080/dashboard/causes" , {
                 method : "POST" , 
+                credentials : "include" , 
                 headers : {
-                    "Authorization" : "Bearer " + jwt , 
                     "Content-Type" : "application/x-www-form-urlencoded"
                 } , 
                 body : formData1.toString()
@@ -85,9 +124,7 @@ submit_button.addEventListener("click" , function(event){
         }
         const responseTable = fetch("http://localhost:8080/dashboard/retrieve-data-after" , {
             method : "GET" , 
-            headers : {
-                "Authorization" : "Bearer " + jwt
-            }
+            credentials : "include"
         })
         .then(responseTable => responseTable.json())
         .then(data => {
@@ -101,12 +138,17 @@ submit_button.addEventListener("click" , function(event){
     })
     .catch(err => {
         console.error('Some backend problem occured ...' + err) ; 
-        alert("Session expired . Please login again ") ; 
+        Swal.fire({
+            title : 'Session Expired' , 
+            text : 'Please login again' , 
+            icon : 'error'
+        }) ; 
         window.location.href = "login.html" ; 
     }) ; 
 }) ; 
 
 function temperatureConverter(temperature , tempUnit){
+    temperature = Number(temperature) ; 
     if(tempUnit === 'celcius'){
         return temperature ; 
     }
@@ -117,6 +159,7 @@ function temperatureConverter(temperature , tempUnit){
 }
 
 function pressureConverter(pressure , pressureUnit){
+    pressure = Number(pressure) ; 
     if(pressureUnit === 'bar'){
         return pressure ; 
     }
@@ -130,6 +173,7 @@ function pressureConverter(pressure , pressureUnit){
 }
 
 function vibrationConverter(vibration , vibrationUnit){
+    vibration = Number(vibration) ; 
     if(vibrationUnit == 'mm/s'){
         return vibration ; 
     }
@@ -137,6 +181,7 @@ function vibrationConverter(vibration , vibrationUnit){
 }
 
 function humidityConverter(humidity , humidUnit){
+    humidity = Number(humidity) ; 
     return humidity ; 
 }
 

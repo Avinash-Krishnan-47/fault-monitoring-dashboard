@@ -18,7 +18,11 @@ submit_button.addEventListener("click" , function(event){
     .then(data => {
         console.log(data) ; 
         if(data === "Mail Sent successfully"){
-            alert("Code sent successfully to the email") ; 
+            Swal.fire({
+                title : 'Code sent successfuly' , 
+                text : 'Mail sent successfully to the respective email' , 
+                icon : 'success'
+            }) ;
             window.location.href = "forgot-password-code-input.html" ; 
             return ; 
         }
@@ -26,7 +30,11 @@ submit_button.addEventListener("click" , function(event){
     })
     .catch(err => {
         console.error(err) ; 
-        alert("Server side problem . Try after sometime") ; 
+        Swal.fire({
+            title : 'Database error occured' , 
+            text : 'Server side problem . Stay tuned for further updates..' , 
+            icon : 'error' 
+        }) ; 
     }) ; 
 }) ; 
 

@@ -1,6 +1,8 @@
 package com.krishnan.internship.smart_monitoring;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +14,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:3000" , allowCredentials = "true")
 @RestController
 @RequestMapping("/dashboard")
 public class DashboardController {
@@ -32,14 +34,17 @@ public class DashboardController {
 
     @PostMapping("/input-parameters")
     public String inputParameters(@RequestParam("temp") float temperature , @RequestParam("pres") float pressure
-    , @RequestParam("vib") float vibration , @RequestParam("humid") float humidity , @RequestHeader("Authorization") String auth){
+    , @RequestParam("vib") float vibration , @RequestParam("humid") float humidity , @CookieValue(value = "auth_token" , required = false) String auth){
         try{
+            if(auth == null){
+                return "Cookie not present" ;
+            }
             webClientService.insertValues(temperature , pressure , vibration , humidity) ;
             String res =  webClientService.getResponseFromModel() ;
             Connection myConn = DriverManager.getConnection(dbUrl , uname , password) ;
             String sqlStatement = "SELECT id FROM availableUsers WHERE username = ? OR email = ?" ;
             PreparedStatement stmt = myConn.prepareStatement(sqlStatement) ;
-            String user = jwtUtil.extractUser(auth.substring(7)) ;
+            String user = jwtUtil.extractUser(auth) ;
             stmt.setString(1 , user) ;
             stmt.setString(2 , user) ;
             ResultSet rset = stmt.executeQuery() ;
@@ -83,14 +88,19 @@ public class DashboardController {
     }
 
     @GetMapping("/retrieve-data")
-    public List<DashboardParams> retriever(@RequestHeader("Authorization") String auth){
+    public ResponseEntity<List<DashboardParams>> retriever(@CookieValue(value = "auth_token" , required = false) String auth) {
+        System.out.println("Hello there from the DashboardController") ;
         List<DashboardParams> list = new ArrayList<>() ;
-        DashboardParams obj = new DashboardParams() ;
+        if(auth == null || auth.isEmpty()){
+            System.out.println("The cookie is empty") ;
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(list) ;
+        }
+        System.out.println("Cookie is not empty") ;
         try{
             String sqlStatement = "SELECT timestmp , temperature , pressure , vibration , humidity , statusMonitor FROM dashboardUsers WHERE user_id = ? ORDER BY id DESC" ;
             Connection myConn = DriverManager.getConnection(dbUrl , uname , password) ;
             String sql = "SELECT id FROM availableUsers WHERE username = ? OR email = ? " ;
-            String user = jwtUtil.extractUser(auth.substring(7)) ;
+            String user = jwtUtil.extractUser(auth) ;
             PreparedStatement stmt1 = myConn.prepareStatement(sql) ;
             stmt1.setString(1 , user) ;
             stmt1.setString(2 , user) ;
@@ -108,27 +118,27 @@ public class DashboardController {
                 dashboardParams.setVibration(rset.getFloat("vibration")) ;
                 dashboardParams.setHumidity(rset.getFloat("humidity")) ;
                 dashboardParams.setStatusMonitor(rset.getString("statusMonitor")) ;
-                list.add(dashboardParams) ; 
+                list.add(dashboardParams) ;
             }
             System.out.println(list) ;
-            return list ;
+            return ResponseEntity.ok(list) ;
         }
         catch (Exception e){
             e.printStackTrace() ;
             System.out.println("Exception occured - retriever function") ;
-            return list ;
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(list) ;
         }
     }
 
     @GetMapping("/retrieve-data-after")
-    public List<DashboardParams> retrieverAfter(@RequestHeader("Authorization") String auth){
+    public List<DashboardParams> retrieverAfter(@CookieValue(value = "auth_token") String auth){
         List<DashboardParams> list = new ArrayList<>() ;
         DashboardParams obj = new DashboardParams() ;
         try{
             String sqlStatement = "SELECT timestmp , temperature , pressure , vibration , humidity , statusMonitor FROM dashboardUsers WHERE user_id = ? ORDER BY id DESC LIMIT 1" ;
             Connection myConn = DriverManager.getConnection(dbUrl , uname , password) ;
             String sql = "SELECT id FROM availableUsers WHERE username = ? OR email = ? " ;
-            String user = jwtUtil.extractUser(auth.substring(7)) ;
+            String user = jwtUtil.extractUser(auth) ;
             PreparedStatement stmt1 = myConn.prepareStatement(sql) ;
             stmt1.setString(1 , user) ;
             stmt1.setString(2 , user) ;

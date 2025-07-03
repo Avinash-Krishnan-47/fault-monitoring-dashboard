@@ -27,13 +27,21 @@ submit_button.addEventListener("click", function (event) {
     })
     .then(response => response.text())
     .then(data => {
-        alert(data);
+        Swal.fire({
+            text : data ,
+            icon : 'success' 
+        }) ; 
         if (data === "Registration successful") {
-            window.location.href = "home.html" ; 
+            window.location.href = "login.html" ; 
+            return ; 
         }
     })
     .catch(err => {
         console.error(err);
-        alert("An error occurred during registration.") ; 
+        Swal.fire({
+            title : 'Database error occured..' , 
+            text : 'Server side problem .. Please stay tuned...' , 
+            icon : 'error'
+        }) ; 
     });
 });

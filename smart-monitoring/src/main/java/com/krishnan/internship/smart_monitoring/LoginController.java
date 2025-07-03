@@ -1,6 +1,10 @@
 package com.krishnan.internship.smart_monitoring;
 
+import jakarta.servlet.http.HttpServletResponse;
+import org.apache.tomcat.util.http.SameSiteCookies;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseCookie;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.MissingRequestHeaderException;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +29,7 @@ public class LoginController {
     @Autowired
     JWTUtil jwt ;
     @PostMapping("/currentuser")
-    public String loginIntoAccount(@RequestParam("uname") String uname , @RequestParam("pswd") String pswd){
+    public String loginIntoAccount(@RequestParam("uname") String uname , @RequestParam("pswd") String pswd , HttpServletResponse response){
         if(!checker(uname)){
             System.out.println("Username not found") ;
             return "No user found with the given username . Please signup instead !" ;
@@ -44,8 +48,18 @@ public class LoginController {
                 if(passwordEncoder.matches(pswd , hashedPassword)){
                     String token = jwt.generateToken(uname) ;
                     redisService.storeToken(token , 10) ;
-                    System.out.println("Login successful !!") ;
-                    return "Bearer " + token ;
+
+                    ResponseCookie cookie = ResponseCookie.from("auth_token" , token)
+                                    .httpOnly(true)
+                                    .secure(true)
+                                    .path("/")
+                                    .maxAge(600)
+                                    .sameSite("Strict")
+                                    .build() ;
+
+                    response.addHeader(HttpHeaders.SET_COOKIE , cookie.toString()) ;
+                    System.out.println("Login successful") ;
+                    return "Login successful" ;
                 }
                 else{
                     System.out.println("Incorrect password") ;
@@ -83,9 +97,11 @@ public class LoginController {
     }
 
     @GetMapping("/content-load")
-    public boolean isValidToken(@RequestHeader("Authorization") String auth){
+    public boolean isValidToken(@CookieValue(value="auth_token") String token){
         try{
-            String token = auth.substring(7) ;
+            if(token == null){
+                return false ;
+            }
             System.out.println("Valid token") ;
             return redisService.isValidToken(token) ;
         }

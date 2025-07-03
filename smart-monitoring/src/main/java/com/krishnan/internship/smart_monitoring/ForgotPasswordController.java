@@ -2,6 +2,7 @@ package com.krishnan.internship.smart_monitoring;
 
 import org.hibernate.boot.jaxb.mapping.marshall.ResultCheckStyleMarshalling;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.*;
@@ -21,6 +22,9 @@ public class ForgotPasswordController {
     public ForgotPasswordController(EmailService service){
         this.service = service ;
     }
+
+    @Autowired
+    private PasswordEncoder passwordEncoder ;
 
     @Autowired
     private RedisService redisService ;
@@ -73,5 +77,26 @@ public class ForgotPasswordController {
         }
         System.out.println("Invalid code provided by the user") ;
         return "Invalid code" ;
+    }
+
+    @PutMapping("/confirm-password")
+    public String confirmPassword(@RequestParam("password") String pass){
+        try{
+            String pswd = passwordEncoder.encode(pass) ;
+            Connection myConn = DriverManager.getConnection(dbUrl , username , password) ;
+            String sqlStatement = "UPDATE availableUsers SET pswd = ? WHERE username = ? OR email = ?" ;
+            PreparedStatement stmt = myConn.prepareStatement(sqlStatement) ;
+            stmt.setString(1 , pswd) ;
+            stmt.setString(2 , eMail) ;
+            stmt.setString(3 , eMail) ;
+            stmt.executeUpdate() ;
+            System.out.println("Password updated successfully") ;
+            return "Updated Password successfully" ;
+        }
+        catch(Exception e){
+            e.printStackTrace() ;
+            System.out.println("An error occured in the confirm-password method - ForgotPasswordController class") ;
+            return "Database error occured" ;
+        }
     }
 }

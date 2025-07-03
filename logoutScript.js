@@ -1,14 +1,13 @@
 const logout_btn = document.getElementById("logout-btn") ; 
-const jwt = localStorage.getItem("jwttoken") ; 
 
 logout_btn.addEventListener("click" , () => {
-    localStorage.removeItem("jwttoken") ; 
     const response = fetch("http://localhost:8080/logout/account" , {
         method : "DELETE" , 
-        headers : {
-            "Authorization" : "Bearer " + jwt
-        }
+        credentials : "include"
     })
-    window.location.href = "home.html" ; 
+    document.getElementById("signup-acc").style.display = 'block' ; 
+    document.getElementById("login-acc").style.display = 'block' ; 
+    document.getElementById("profile-pic").style.display = 'none' ; 
+    document.getElementById("logout-btn").style.display = 'none' ; 
     return ; 
 })

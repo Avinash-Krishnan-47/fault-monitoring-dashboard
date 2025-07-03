@@ -25,7 +25,11 @@ submit_button.addEventListener("click" , function(event){
     })
     .catch(err => {
         console.error(err) ; 
-        alert("Error occured when verifying code ...") ; 
+        Swal.fire({
+            title : 'Error occured' , 
+            text : 'Database error occured . Please stay tuned ...' , 
+            icon : 'error' 
+        }) ; 
     })
 })
 
